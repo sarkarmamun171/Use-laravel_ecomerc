@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,8 +31,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//Profile 
+//Profile
 Route::get('/user/profile',[HomeController::class,'user_profile'])->name('user.profile');
 Route::post('/user/profile/update',[HomeController::class,'user_profile_update'])->name('user.profile.update');
 Route::post('/user/profile/pass_update',[HomeController::class,'user_password_update'])->name('user.password.update');
+Route::post('/user/profile/image',[HomeController::class,'user_image_update'])->name('user.image.update');
+
+//User section
+Route::get('/user-list',[UserController::class,'user_list'])->name('user.list');
 

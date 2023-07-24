@@ -76,22 +76,17 @@
             <div class="card-header">
                 <h3>Update Image</h3>
             </div>
+            @if (session('image_update'))
+            <strong class="text text-primary"> {{ session('image_update') }}</strong>
+            @endif
             <div class="card-header">
-                <form action="{{ route('user.profile.update') }}" method="post">
+                <form action="{{ route('user.image.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="" class="form-label">Current Image</label>
-                            <input type="image" name="image" class="form-control" placeholder="Enter name"
-                                value="{{ Auth::user()->name }}">
+                            <input type="file" name="image" class="form-control">
                             @error('image')
-                                {{ $message }}
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="" class="form-label">uplode Image</label>
-                            <input type="image" name="image" class="form-control" value="{{ Auth::user()->email }}">
-                            @error('email')
                                 {{ $message }}
                             @enderror
                         </div>

@@ -12,6 +12,11 @@
     <link href="{{ asset('Backend') }}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="{{ asset('Backend') }}/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="{{ asset('Backend') }}/css/style.css" rel="stylesheet">
+    <style>
+        .card{
+            height: auto!important;
+        }
+    </style>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -230,7 +235,12 @@
 							</li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                                    <img src="{{ asset('Backend') }}/images/profile/17.jpg" width="20" alt=""/>
+                                   @if (Auth::user()->photo==null)
+                                   <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" />
+                                   @else
+                                   <img src="{{ asset('uploads/users') }}/{{ Auth::user()->photo}}" width="20" alt=""/>
+                                   @endif
+
 									<div class="header-info">
 										<span class="text-black"><strong>{{ Auth::user()->name }}</strong></span>
 										<p class="fs-12 mb-0">Super Admin</p>
@@ -275,30 +285,16 @@
                   </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-television"></i>
-							<span class="nav-text">Apps</span>
+							<span class="nav-text">User</span>
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="./app-profile.html">Profile</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">User</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="./email-compose.html">Compose</a></li>
-                                    <li><a href="./email-inbox.html">Inbox</a></li>
-                                    <li><a href="./email-read.html">Read</a></li>
+                                    <li><a href="{{ route('user.list') }}">User List</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./app-calender.html">Calendar</a></li>
-							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./ecom-product-grid.html">Product Grid</a></li>
-									<li><a href="./ecom-product-list.html">Product List</a></li>
-									<li><a href="./ecom-product-detail.html">Product Details</a></li>
-									<li><a href="./ecom-product-order.html">Order</a></li>
-									<li><a href="./ecom-checkout.html">Checkout</a></li>
-									<li><a href="./ecom-invoice.html">Invoice</a></li>
-									<li><a href="./ecom-customers.html">Customers</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+							</ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-controls-3"></i>
@@ -411,7 +407,7 @@
         <!--**********************************
             Sidebar end
         ***********************************-->
-		
+
 		<!--**********************************
             Content body start
         ***********************************-->
@@ -463,13 +459,13 @@
     <script src="{{ asset('Backend') }}/js/custom.min.js"></script>
 	<script src="{{ asset('Backend') }}/js/deznav-init.js"></script>
 	<script src="{{ asset('Backend') }}/vendor/owl-carousel/owl.carousel.js"></script>
-	
+
 	<!-- Chart piety plugin files -->
     <script src="./vendor/peity/jquery.peity.min.js"></script>
-	
+
 	<!-- Apex Chart -->
 	<script src="./vendor/apexchart/apexchart.js"></script>
-	
+
 	<!-- Dashboard 1 -->
 	<script src="./js/dashboard/dashboard-1.js"></script>
 	<script>
@@ -492,11 +488,11 @@
 					},
 					882:{
 						items:3
-					},	
+					},
 					1200:{
 						items:2
-					},			
-					
+					},
+
 					1540:{
 						items:3
 					},
@@ -504,12 +500,12 @@
 						items:4
 					}
 				}
-			})			
+			})
 		}
 		jQuery(window).on('load',function(){
 			setTimeout(function(){
 				carouselReview();
-			}, 1000); 
+			}, 1000);
 		});
 	</script>
 </body>

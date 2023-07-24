@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,7 @@ class HomeController extends Controller
             'email' =>$request->email,
         ]);
         return back();
-        
+
     }
     public function user_password_update(Request $request){
 
@@ -51,8 +52,43 @@ class HomeController extends Controller
         else {
             return back()->with('current_pass','Wrong old Password');
         }
-       
+
     }
-}
+
+    public function user_image_update(Request $request){
+        $request->validate([
+            'photo'=>'required|mimes:jpg,png,svg,jpeg,pjp,webp',
+            'photo'=>'file|max:300',
+            'photo'=>'dimensions:width=100,height=200'
+        ]);
+
+        if (Auth::user()->photo==null) {
+            $photo = $request->image;
+            $extension = $photo->extension();
+            $filename = Auth::id().'.'.$extension;
+            //echo $filename;
+            $image = Image::make($photo)->resize(300, 200)->save(public_path('uploads/users/'.$filename));
+
+            User::find(Auth::id())->update([
+                'photo'=>$filename,
+            ]);
+        }
+        else{
+            $pre_photo =public_path('uploads/users/'.Auth::user()->photo);
+            unlink($pre_photo);
+
+            $photo = $request->image;
+            $extension = $photo->extension();
+            $filename = Auth::id().'.'.$extension;
+            //echo $filename;
+            $image = Image::make($photo)->resize(300, 200)->save(public_path('uploads/users/'.$filename));
+
+            User::find(Auth::id())->update([
+                'photo'=>$filename,
+            ]);
+            return back()->with('image_update','Profile Image Update Succeessful');
+            }
+        }
+     }
 
 ?>
