@@ -1,21 +1,14 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
+use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,4 +32,32 @@ Route::post('/user/profile/image',[HomeController::class,'user_image_update'])->
 
 //User section
 Route::get('/user-list',[UserController::class,'user_list'])->name('user.list');
+Route::get('/user/remove/{user_id}',[UserController::class,'user_remove'])->name('user.remove');
+
+//Category part
+
+Route::get('/category',[CategoryController::class,'category'])->name('category');
+Route::post('category/store',[CategoryController::class,'category_store'])->name('category.store');
+Route::get('/category/edit{category_id}',[CategoryController::class,'category_edit'])->name('category.edit');
+Route::post('/category/update',[CategoryController::class,'category_update'])->name('category.update');
+Route::get('/category/soft-delete{category_id}',[CategoryController::class,'category_soft_delete'])->name('category.soft.delete');
+
+//trash
+Route::get('/category/trash',[CategoryController::class,'trash'])->name('trash');
+Route::get('/category/restore{id}',[CategoryController::class,'category_restore'])->name('category.restore');
+Route::get('/category/hard/delete{id}',[CategoryController::class,'category_hard_delete'])->name('category.hard.delete');
+
+//Checked button in delete
+Route::post('/category/checked/delete',[CategoryController::class,'category_checked_delete'])->name('category.delete.checked');
+Route::post('/restore.checked',[CategoryController::class,'category_restore_checked'])->name('restore.checked');
+// Route::get('/category/restore/delete{category_id}',[CategoryController::class,'category_restore_delete'])->name('category.restore.delete');
+// Route::get('/category/hard/delete{id}',[CategoryController::class,'category_restore_delete'])->name('category.restore.delete');
+
+//Subcategory
+Route::get('/category/subcategory',[SubcategoryController::class,'category_subcategory'])->name('subcategory');
+Route::post('/category/subcategory/store',[SubcategoryController::class,'category_subcategory_store'])->name('subcategory.store');
+Route::get('/category/subcategory/edit{id}',[SubcategoryController::class,'subcategory_edit'])->name('category.subcategory.edit');
+Route::post('/category/subcategory/update{id}',[SubcategoryController::class,'subcategory_update'])->name('category.subcategory.update');
+
+
 

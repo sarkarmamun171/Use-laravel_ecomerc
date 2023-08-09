@@ -61,7 +61,7 @@ class HomeController extends Controller
             'photo'=>'file|max:300',
             'photo'=>'dimensions:width=100,height=200'
         ]);
-
+//image tag use korar jojo {{Intervention Image}} lakbe
         if (Auth::user()->photo==null) {
             $photo = $request->image;
             $extension = $photo->extension();
