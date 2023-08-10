@@ -5,6 +5,9 @@
             <div class="card-header">
                 <h3>SubCategory List</h3>
             </div>
+            @if (session('delete'))
+                        <strong class="text-primary">{{ session('delete') }}</strong>
+                    @endif
             <div class="card-body">
                 <div class="row">
                     @foreach ($categories as $category)
@@ -23,11 +26,12 @@
                                             <td>{{ $subcategory->Subcategory_name }}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a title="Edit" href="{{ route('category.subcategory.edit', $subcategory->id) }}"
+                                                    <a title="Edit"
+                                                        href="{{ route('category.subcategory.edit', $subcategory->id) }}"
                                                         class="btn btn-primary shadow btn-xs sharp del_btn"><i
                                                             class="fa fa-pencil"></i></a>&nbsp;
                                                     <a title="Delete"
-                                                        href=""
+                                                        href="{{ route('category.subcategory.delete', $subcategory->id) }}"
                                                         class="btn btn-danger shadow btn-xs sharp del_btn"><i
                                                             class="fa fa-trash"></i></a>
                                                 </div>

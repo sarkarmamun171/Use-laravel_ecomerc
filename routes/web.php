@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +59,11 @@ Route::get('/category/subcategory',[SubcategoryController::class,'category_subca
 Route::post('/category/subcategory/store',[SubcategoryController::class,'category_subcategory_store'])->name('subcategory.store');
 Route::get('/category/subcategory/edit{id}',[SubcategoryController::class,'subcategory_edit'])->name('category.subcategory.edit');
 Route::post('/category/subcategory/update{id}',[SubcategoryController::class,'subcategory_update'])->name('category.subcategory.update');
+Route::get('/category/subcategory/delete{id}',[SubcategoryController::class,'subcategory_delete'])->name('category.subcategory.delete');
 
+//Brand categories
+Route::get('/category/brand',[BrandController::class,'category_brand'])->name('category.brand');
+Route::post('/category/brand/store',[BrandController::class,'category_brand_store'])->name('category.brand.store');
+Route::get('/category/brand/edit',[BrandController::class,'category_brand_edit'])->name('category.brand.edit');
 
 
