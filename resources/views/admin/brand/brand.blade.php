@@ -1,38 +1,47 @@
 @extends('layouts.admin');
 @section('content')
     <div class="col-lg-8">
+
         <form action="" method="post">
             @csrf
-        <div class="card">
-            <div class="card-header">
-                <h3>Brand List</h3>
+            <div class="card">
+
+                <div class="card-header">
+                    <h3>Brand List</h3>
+                </div>
+                <div class="card-body">
+                    @if (session('delete'))
+                        <div class="alert alert-info">{{ session('delete') }}</div>
+                    @endif
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>SL</th>
+                            <th>Brand Name</th>
+                            <th>Brand Logo</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach ($brands as $sl => $brand)
+                            <tr>
+                                <td>{{ $brands->firstitem() + $sl }}</td>
+                                <td>{{ $brand->brand_name }}</td>
+                                <td><img width="50" src="{{ asset('uploads/brands/') }}/{{ $brand->brand_logo }}"></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a title="Edit" href="{{ route('category.brand.edit', $brand->id) }}"
+                                            class="btn btn-primary shadow btn-xs sharp del_btn"><i
+                                                class="fa fa-pencil"></i></a>&nbsp;
+                                        <a title="Delete" href="{{ route('category.brand.delete', $brand->id) }}"
+                                            class="btn btn-danger shadow btn-xs sharp del_btn"><i
+                                                class="fa fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    {{ $brands->links() }}
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                <tr>
-                    <th>SL</th>
-                    <th>Brand Name</th>
-                    <th>Brand Logo</th>
-                    <th>Action</th>
-                </tr>
-                @foreach ($brands as $sl=>$brands)
-                <tr>
-                    <td>{{ $sl+1 }}</td>
-                    <td>{{ $brands->brand_name }}</td>
-                    <td><img  width="50" src="{{ asset('uploads/brands/') }}/{{ $brands->brand_logo }}"></td>
-                    <td>
-                        <div class="d-flex">
-                            <a title="Edit" href="{{ route('category.brand.edit') }}" class="btn btn-primary shadow btn-xs sharp del_btn"><i class="fa fa-pencil"></i></a>&nbsp;
-                            <a title="Delete" href="" class="btn btn-danger shadow btn-xs sharp del_btn"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </table>
-            {{-- {{ $brands->links() }} --}}
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
     <div class="col-lg-4">
 
