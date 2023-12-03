@@ -51,4 +51,9 @@ class SubcategoryController extends Controller
         ]);
         return back()->with('success','Subcategory added Successfully');
     }
+    public function subcategory_delete($id){
+        Subcategory::find($id)->delete();
+        return back()->with('delete','Subcategory delete successfully');
+
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ class CategoryController extends Controller
 {
     public function Category()
     {
-        $categories = Category::Paginate(5);
+        $categories = Category::Paginate(10);
         return view('admin.category.category', [
             'categories' => $categories,
         ]);
@@ -94,13 +95,23 @@ class CategoryController extends Controller
         $image = public_path('uploads/category/'.$category->category_image);
         unlink($image);
 
+        $subcategory= Subcategory::where('category_id',$id)->get();
+        foreach($subcategory as $subcate){
+            Subcategory::find($subcate->id)->update([
+                'category_id'=>12,
+            ]);
+        }
+
         Category::onlyTrashed()->find($id)->forceDelete();
-        return back()->with('delete','Permanently Deleted Successfully');
+        return back();
     }
 
     public function category_checked_delete(Request $request){
        foreach($request->category_id as $category){
             Category::find($category)->delete();
+            Subcategory::find('category_id',$category)->update([
+                'category_id'=>12,
+            ]);
        }
        return back();
     }
