@@ -1,20 +1,33 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+//Frontend View
+Route::get('/',[FrontendController::class,'index'])->name('index');
+Route::get('/category/product/{id}',[FrontendController::class.'category_products'])->name('category.product');
+Route::get('/category/product/{id}',[FrontendController::class,'category_products'])->name('category.product');
+Route::get('/subcategory/product/{id}',[FrontendController::class,'subcategory_products'])->name('subcategory.product');
+Route::get('/product/details/{slug}',[FrontendController::class,'product_details'])->name('product.details');
+Route::post('/getSize',[FrontendController::class,'getSize']);
+Route::post('/getQuantity',[FrontendController::class,'getQuantity']);
+
+
+
 
 Route::get('/dashboard',[HomeController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -73,5 +86,35 @@ Route::get('category/brand/delete{id}',[BrandController::class,'category_brand_d
 Route::get('/product',[ProductController::class,'product'])->name('product');
 Route::post('/getSubcategory',[ProductController::class,'getsubcategory']);
 Route::post('/product/store',[ProductController::class,'product_store'])->name('product.store');
+Route::get('/product/list',[ProductController::class,'product_list'])->name('product.list');
+Route::get('/product/delete{id}',[ProductController::class,'product_delete'])->name('product.delete');
+Route::get('/product/show/{id}',[ProductController::class,'product_show'])->name('product.show');
+
+//Product Variation
+Route::get('/variation',[InventoryController::class,'variation'])->name('variation');
+Route::post('/color/store',[InventoryController::class,'color_store'])->name('color.store');
+Route::post('/sizer/store',[InventoryController::class,'size_store'])->name('size.store');
+Route::get('/color/remove/{id}',[InventoryController::class,'color_remove'])->name('color.remove');
+Route::get('/size/remove/{id}',[InventoryController::class,'size_remove'])->name('size.remove');
+Route::get('/product/inventory/{id}',[InventoryController::class,'inventory'])->name('inventory');
+Route::post('/inventory/store/{id}',[InventoryController::class,'inventory_store'])->name('inventory.store');
+
+//Status Change
+Route::post('/changeStatus',[ProductController::class,'changeStatus']);
+
+//Customer Related
+Route::get('/customer/login',[CustomerAuthController::class,'customer_login'])->name('customer.login');
+Route::get('/customer/register',[CustomerAuthController::class,'customer_register'])->name('customer.register');
+Route::post('/customer/store',[CustomerAuthController::class,'customer_store'])->name('customer.store');
+Route::post('/customer/login/confirm',[CustomerAuthController::class,'customer_login_confirm'])->name('customer.login.confirm');
+// Customer relation
+Route::get('/customer/profile',[CustomerController::class,'customer_profile'])->name('customer.profile')->middleware('customer');
+Route::get('/customer/logout',[CustomerController::class,'customer_logout'])->name('customer.logout');
+Route::post('/customer/profile/update',[CustomerController::class,'customer_profile_update'])->name('customer.profile.update');
+
+//Cart Related
+Route::post('/customer/cart/store',[CartController::class,'customer_cart_store'])->name('customer.cart.store');
+
+
 
 

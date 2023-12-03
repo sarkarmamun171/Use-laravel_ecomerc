@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
     <!---summernote-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
@@ -478,7 +479,8 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('product') }}">Product</a></li>
-
+                            <li><a href="{{ route('product.list') }}">Product List</a></li>
+                            <li><a href="{{ route('variation') }}">Varaition</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -580,6 +582,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
     <!--summernote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
 
     <!-- Chart piety plugin files -->
     <script src="./vendor/peity/jquery.peity.min.js"></script>

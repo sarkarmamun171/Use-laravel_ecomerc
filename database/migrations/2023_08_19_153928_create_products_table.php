@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->integer('status')->nullable();
             $table->integer('category_id');
             $table->integer('subcategory_id');
-            $table->integer('brand_id')->nullable();
+            $table->integer('brand_id');
             $table->string('product_name');
             $table->integer('price');
             $table->integer('discount')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('tags');
             $table->string('short_des')->nullable();
             $table->longText('long_description');
-            $table->longText('add_info')->nullable();
+            $table->longText('add_info');
             $table->string('pre_image');
             $table->string('slug');
             $table->timestamps();

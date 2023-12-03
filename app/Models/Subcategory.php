@@ -11,6 +11,6 @@ class Subcategory extends Model
     protected $fillable = [
         'Subcategory_name',
         'updated_at',
-
     ];
+    
 }

@@ -5,6 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <h3>Add New Product</h3>
+                <a href="{{ route('product.list') }}" class="btn btn-primary"><i class="fa fa-list mr-2"></i>Product List</a>
             </div>
             @if (session('success'))
                     <div class="alert alert-info">{{ session('success') }}</div>
@@ -81,10 +82,11 @@
                             <div class="mb-3">
                                 <label for="" class="form-label">Tags</label>
                                 <input type="text" name="tags[]" class="form-control" id="input-tags">
+                                @error('tags')
+                                <strong class="text-danger">{{ $message }}</strong>
+                            @enderror
                             </div>
-                            @error('tags')
-                            <strong class="text-danger">{{ $message }}</strong>
-                        @enderror
+
                         </div>
                         <div class="col-lg-12">
                             <div class="mb-3">
@@ -95,16 +97,19 @@
                         <div class="col-lg-12">
                             <div class="mb-3">
                                 <label for="" class="form-label">Long Description</label>
-                                <input type="text" name="long_description" class="form-control" id="summernote2">
-                            </div>
-                            @error('long_des')
-                            <strong class="text-danger">{{ $message }}</strong>
-                        @enderror
+                                <textarea type="text" name="long_description" class="form-control" id="summernote2"> </textarea>
+                                @error('long_description')
+                                <strong class="text-danger">{{ $message }}</strong>
+                            @enderror
+
                         </div>
                         <div class="col-lg-12">
                             <div class="mb-3">
                                 <label for="" class="form-label">Additional Information</label>
-                                <input type="text" name="add_info" class="form-control" id="summernote3">
+                                <textarea type="text" name="add_info" class="form-control" id="summernote3"></textarea>
+                                @error('add_info')
+                                <strong class="text-danger">{{ $message }}</strong>
+                            @enderror
                             </div>
 
                         </div>
@@ -127,7 +132,7 @@
                                     <div class="upload__btn-box">
                                       <label class="upload__btn">
                                         <p>Upload images</p>
-                                        <input name="gallery_img" type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                                        <input name="gallery[]" type="file" multiple="" data-max_length="20" class="upload__inputfile">
                                       </label>
                                     </div>
                                     <div class="upload__img-wrap"></div>
